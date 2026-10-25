@@ -77,3 +77,20 @@
 }
 
 #account-dialog{max-width:530px}#account-status{font-size:14px;line-height:1.6;color:#79562d}#google-signin{min-height:44px;margin:20px 0;display:flex;justify-content:center}.account-save-button{background:#2e7549;color:#fff5cd;border:2px solid #e4bb67;border-radius:10px;padding:10px 15px;font-weight:900;margin:6px 0 12px}.arcade-shell .account-tool{color:#fff9dc}@media(max-width:650px){.arcade-shell .brand{font-size:10px}.arcade-shell .brand strong{font-size:16px}.arcade-shell .account-tool{width:auto;font-size:10px}.arcade-shell .account-tool span{display:inline}.arcade-shell .account-tool img{display:none}}
+
+/* Compact order ticket stays above the food trays on small game surfaces. */
+.order-level{display:none}
+@container (max-width:1000px){
+ .arcade-shell .order{z-index:1;top:3%;left:24%;width:46%;padding:5px 7px;border-width:2px;border-radius:10px;box-shadow:0 2px 0 #835022}
+ .arcade-shell #customer-name{display:block;padding-right:34px;font-size:clamp(7px,1.1cqw,11px);line-height:1.2}
+ .arcade-shell .order #dialogue{display:none}
+ .arcade-shell #order-icons{display:flex;flex-wrap:nowrap;gap:3px;margin-top:5px;align-items:flex-start}
+ .arcade-shell .order-item{position:relative;flex:1;min-width:0;max-width:none;font-size:clamp(6px,.85cqw,9px);line-height:1.15;gap:1px;overflow-wrap:normal}
+ .arcade-shell .order-item img{width:clamp(14px,3.2cqw,29px);height:clamp(14px,3.2cqw,29px)}
+ .arcade-shell .order-item.done:after{right:0;top:0;margin:0;font-size:clamp(8px,1.2cqw,12px)}
+ .arcade-shell .order-level{display:block;font-weight:900;font-size:clamp(8px,1.25cqw,12px);line-height:1.2;margin-top:4px}
+ .arcade-shell .order .patience-label{position:absolute;right:6px;top:3px;margin:0}
+ .arcade-shell .order .patience-label>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .arcade-shell .order .patience-label strong{font-size:clamp(10px,1.6cqw,16px);line-height:1.1;padding:1px 4px}
+ .arcade-shell .order .patience-track{height:4px;margin-top:4px}
+}
