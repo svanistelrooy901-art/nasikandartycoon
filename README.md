@@ -38,3 +38,11 @@ Built-in ImageGen created the approved food atlas and annoyed-character variants
 ## Arcade presentation skin
 
 `public/arcade.css` replaces the website-style wrapper with a viewport-sized game lobby, raised play/menu buttons, coin-style wallet/sales HUD, stage progression indicators, game shop/ranking windows and an in-game help dialog. The approved character/logo art is reused. UI icon SVGs are exported directly from Lucide React; its license ships in assets. No gameplay rules, D1 schema, balances or leaderboard scoring were changed for this restyle.
+
+## Deploy to your own Cloudflare account
+
+Connect this GitHub repository as a **Worker**, with root directory `/` and production branch `main`. Leave Build command empty; set Deploy command to `pnpm run deploy:cloudflare`. Clear the optional Preview command until an isolated preview database is configured. Wrangler bundles the standalone entrypoint directly; the Sites/Vinext build is not required for this target.
+
+The deploy script resolves or creates only `nasikandartycoon-db`, applies the tracked Drizzle migrations, then deploys Worker `nasikandartycoon` with the `DB` binding and public assets. The build token needs Workers deployment and D1 read/edit permissions. Migration failure stops deployment. Database IDs are resolved in the build environment, never invented.
+
+This creates a separate database. Existing Sites sales and guest sessions are not migrated by this script. Keep the old Site available until migration or a fresh launch is agreed. HTML OG/canonical URLs use the incoming Cloudflare/custom-domain origin.
