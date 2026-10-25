@@ -1,3 +1,4 @@
+import {setupShopGuide} from './shop-guide.mjs';
 const STORAGE_KEY='nkt-tutorial-v1';
 
 // Re-check the plate after every action, so mistakes and resets have a way back.
@@ -14,7 +15,8 @@ export function tutorialTask(game,SAUCES){
 }
 
 export function setupTutorial({game,stage,getHeld,toast,NAMES,SAUCES}){
- let active=false,step='order',signature='',seen=false,previousTarget=null;
+ let active=false,step='order',signature='',seen=false,previousTarget=null,resumeAfterGuide=false;
+ const shopGuide=setupShopGuide({stage,onDone:()=>{if(resumeAfterGuide&&game.phase==='paused')game.resume();resumeAfterGuide=false;finish();}});
  try{seen=localStorage.getItem(STORAGE_KEY)==='done';}catch{}
  const panel=document.createElement('aside');panel.id='tutorial';panel.hidden=true;panel.setAttribute('aria-label','Tutorial interaktif');
  panel.innerHTML='<div class="tutorial-heading"><span id="tutorial-progress"></span><button type="button" id="tutorial-skip">Skip</button></div><h3 id="tutorial-title"></h3><p id="tutorial-copy" role="status" aria-live="polite"></p><button type="button" id="tutorial-next">Faham, jom cedok!</button>';
@@ -23,7 +25,7 @@ export function setupTutorial({game,stage,getHeld,toast,NAMES,SAUCES}){
  const targets=()=>({order:document.querySelector('#order'),food:document.querySelector('#stock-'+task().key),sauce:document.querySelector('#stock-'+task().key),reset:document.querySelector('#clear'),serve:document.querySelector('#serve'),done:document.querySelector('#combo-badge')});
  const task=()=>tutorialTask(game,SAUCES);
  function clearHighlights(){previousTarget?.classList.remove('tutorial-focus');previousTarget=null;document.querySelector('.gravy-card')?.classList.remove('tutorial-meter');}
- function stop(){active=false;panel.hidden=true;clearHighlights();}
+ function stop(){shopGuide.close();resumeAfterGuide=false;active=false;panel.hidden=true;clearHighlights();}
  function finish(){seen=true;try{localStorage.setItem(STORAGE_KEY,'done');}catch{}stop();toast('Teruskan latihan. Tutorial boleh diulang dalam Cara main.');}
  function render(){
   if(!active)return;
@@ -41,12 +43,12 @@ export function setupTutorial({game,stage,getHeld,toast,NAMES,SAUCES}){
     done:['5 / 5 · COMBO & SALES','Dah pandai menjoki!','Order tepat berturut-turut bina combo ×3, ×5 dan ×8 untuk extra mata dan tips. Dulang kosong? Tekan untuk refill. Sales tentukan ranking; duit dan tips bantu upgrade di Kedai Saya. Latihan tidak menyimpan duit atau sales.']
    }[current.kind];
    $('#tutorial-progress').textContent=text[0];$('#tutorial-title').textContent=text[1];$('#tutorial-copy').textContent=text[2];
-   next.hidden=!['order','done'].includes(current.kind);next.textContent=current.kind==='done'?'Teruskan latihan':'Faham, jom cedok!';
+   next.hidden=!['order','done'].includes(current.kind);next.textContent=current.kind==='done'?'Seterusnya: Kedai Saya':'Faham, jom cedok!';
   }
   const target=targets()[current.kind];if(previousTarget!==target){clearHighlights();previousTarget=target;previousTarget?.classList.add('tutorial-focus');}
   if(current.kind==='sauce')document.querySelector('.gravy-card')?.classList.add('tutorial-meter');
  }
- next.onclick=()=>{if(step==='done')finish();else{step='play';render();}};
+ next.onclick=()=>{if(step==='done'){step='shop';panel.hidden=true;clearHighlights();resumeAfterGuide=game.phase==='playing';game.pause();shopGuide.open();}else{step='play';render();}};
  $('#tutorial-skip').onclick=finish;
  return {
   firstTime:()=>!seen,
