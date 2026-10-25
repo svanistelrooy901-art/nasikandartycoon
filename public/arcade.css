@@ -98,3 +98,26 @@
 #league-content{padding:8px 25px 25px}.arcade-shell .business-tabs{flex-wrap:wrap}.league-forms{display:grid;grid-template-columns:1fr 1fr;gap:15px}.league-panel{background:#fff2cc;border:2px solid #d2a156;border-radius:15px;padding:17px;margin:15px 0;color:#815421}.league-panel h4{font-size:22px;margin:0 0 9px;color:#a46620}.league-panel p{font-size:13px;line-height:1.5}.league-panel label,.league-invite label{display:block;font-weight:900;font-size:13px;margin-bottom:8px}.league-panel input,.league-panel select{display:block;width:100%;min-width:0;padding:10px;border:2px solid #cba363;border-radius:9px;background:#fffaf0;color:#70451f;font:inherit;font-size:13px}.league-panel small{display:block;font-size:10px;line-height:1.5;color:#906638}.league-picker{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.league-picker button{border:2px solid #e4bb67;border-radius:10px;padding:9px 12px;background:#ffe1a0;color:#80501e;font-weight:900}.league-picker button.selected{background:#3e7848;color:#fff4cc}.league-board-heading{display:flex;justify-content:space-between;align-items:start;gap:15px}.league-board-heading select{width:auto;max-width:100%}.league-invite{border-top:1px solid #d6b576;padding-top:17px;margin-top:15px}.league-leave{background:none;border:0;padding:8px;color:#94502e;text-decoration:underline;font-size:12px}#league-feedback{font-size:13px;color:#86572a;line-height:1.5;min-height:20px}#league-rows .leader-row{grid-template-columns:38px minmax(0,1fr) auto}#league-rows .leader-row span{overflow-wrap:anywhere}#league-rows .leader-row strong{white-space:nowrap}@media(max-width:650px){#league-content{padding:6px 13px 19px}.league-forms{grid-template-columns:1fr;gap:0}.league-panel{padding:13px;margin:10px 0}.league-board-heading{flex-direction:column;gap:5px}.league-panel h4{font-size:20px}#league-rows .leader-row{grid-template-columns:30px minmax(0,1fr) auto}.arcade-shell .business-tabs button{font-size:10px;padding:8px}.league-panel input{font-size:16px}}
 
 .league-panel h4,.league-picker button{overflow-wrap:anywhere;max-width:100%}
+
+/* Keep the gravy target and live pour meter together directly under the order. */
+.arcade-shell .order #order-icons{margin-top:3px}
+.arcade-shell .order-item img{width:clamp(14px,2.7cqw,24px);height:clamp(14px,2.7cqw,24px)}
+.arcade-shell .order .gravy-card{display:grid;grid-template-columns:auto minmax(30px,1fr) auto;align-items:center;gap:7px;width:auto;min-height:26px;margin:5px -7px -5px;padding:4px 6px;border-width:1px;border-radius:0 0 8px 8px;box-shadow:none}
+.arcade-shell .order .gravy-card>div:first-child{display:contents}
+.arcade-shell .order .gravy-card .order-level{display:block;grid-column:1;grid-row:1;font-size:clamp(8px,1.1cqw,11px);font-weight:900;line-height:1.2;letter-spacing:0;margin:0;color:#fff1c7}
+.arcade-shell .order .gravy-card strong{grid-column:3;grid-row:1;font-size:clamp(8px,1.1cqw,12px);line-height:1.2;white-space:nowrap;color:#fff8de}
+.arcade-shell .order .gravy-track{grid-column:2;grid-row:1;height:8px;margin:0;min-width:0;border:1px solid #a4bd77}
+.arcade-shell .order #gravy-types{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@container (max-width:1000px){
+ .arcade-shell .order{top:1%;padding:3px 7px}
+ .arcade-shell #customer-name{font-size:clamp(6px,.9cqw,9px);line-height:1.1}
+ .arcade-shell .order #order-icons{margin-top:2px;gap:2px}
+ .arcade-shell .order-item{font-size:clamp(6px,.7cqw,7px);line-height:1.05;gap:0}
+ .arcade-shell .order-item img{width:clamp(12px,2cqw,18px);height:clamp(12px,2cqw,18px)}
+ .arcade-shell .order .patience-track{height:2px;margin-top:3px}
+ .arcade-shell .order .patience-label{top:2px}
+ .arcade-shell .order .patience-label strong{font-size:clamp(9px,1.2cqw,11px);padding:0 3px}
+ .arcade-shell .order .gravy-card{min-height:18px;margin-top:3px;margin-bottom:-3px;padding:2px 5px;gap:5px}
+ .arcade-shell .order .gravy-card .order-level,.arcade-shell .order .gravy-card strong{font-size:clamp(7px,.9cqw,9px)}
+ .arcade-shell .order .gravy-track{height:7px}
+}
