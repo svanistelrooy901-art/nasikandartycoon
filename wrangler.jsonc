@@ -19,5 +19,8 @@
       "migrations_dir": "./drizzle"
     }
   ],
-  "keep_vars": true
+  "keep_vars": true,
+  "vars": {
+    "GOOGLE_CLIENT_ID": "1062368006478-bao3sfjero3q1u8bn7ng7hb5jmel31hi.apps.googleusercontent.com"
+  }
 }
