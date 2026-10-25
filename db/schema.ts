@@ -6,3 +6,7 @@ export const players=sqliteTable('players',{
 });
 export const runs=sqliteTable('runs',{id:text('id').primaryKey(),playerId:text('player_id').notNull().references(()=>players.id),state:text('state').notNull(),status:text('status').notNull(),updatedAt:integer('updated_at').notNull(),revision:integer('revision').notNull().default(0)},t=>[index('runs_player').on(t.playerId)]);
 export const sales=sqliteTable('sales',{id:text('id').primaryKey(),playerId:text('player_id').notNull().references(()=>players.id),runId:text('run_id').notNull(),amount:integer('amount').notNull(),createdAt:integer('created_at').notNull()},t=>[index('sales_week').on(t.createdAt)]);
+
+export const googleAccounts=sqliteTable('google_accounts',{googleSub:text('google_sub').primaryKey(),playerId:text('player_id').notNull().unique().references(()=>players.id),createdAt:integer('created_at').notNull()});
+export const playerSessions=sqliteTable('player_sessions',{tokenHash:text('token_hash').primaryKey(),playerId:text('player_id').notNull().references(()=>players.id),expiresAt:integer('expires_at').notNull()},t=>[index('sessions_player').on(t.playerId)]);
+export const authChallenges=sqliteTable('auth_challenges',{nonceHash:text('nonce_hash').primaryKey(),playerId:text('player_id').notNull().references(()=>players.id),expiresAt:integer('expires_at').notNull()});

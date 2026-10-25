@@ -75,3 +75,5 @@
  .arcade-shell .dock-button{padding:5px 6px;gap:5px}
  .arcade-shell .dock-button img{width:18px;height:18px}
 }
+
+#account-dialog{max-width:530px}#account-status{font-size:14px;line-height:1.6;color:#79562d}#google-signin{min-height:44px;margin:20px 0;display:flex;justify-content:center}.account-save-button{background:#2e7549;color:#fff5cd;border:2px solid #e4bb67;border-radius:10px;padding:10px 15px;font-weight:900;margin:6px 0 12px}.arcade-shell .account-tool{color:#fff9dc}@media(max-width:650px){.arcade-shell .brand{font-size:10px}.arcade-shell .brand strong{font-size:16px}.arcade-shell .account-tool{width:auto;font-size:10px}.arcade-shell .account-tool span{display:inline}.arcade-shell .account-tool img{display:none}}

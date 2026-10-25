@@ -27,7 +27,7 @@ A Malaysian service/tycoon browser game. Vinext + Cloudflare Worker with a Sites
 
 The browser environment only provides Canvas rendering. Hardware WebGL and actual Android/iOS touch still need real-device QA. API timing/rate/stock/revision checks prevent simple balance injection, replay and cross-profile writes; this is baseline abuse resistance, not bot-proof gameplay.
 
-Guest saves require the same browser cookie (180 days), with no cross-device account recovery yet. Google sign-in is not implemented. Menu currently expands from 6 to 8 to 9 foods plus sauces; the full 20-lauk menu, multiple plates, cashier and group orders remain future work. Economy values are initial balance values.
+Guest saves require the same browser cookie (180 days), with no cross-device account recovery yet. Google sign-in is optional once GOOGLE_CLIENT_ID is configured. Menu currently expands from 6 to 8 to 9 foods plus sauces; the full 20-lauk menu, multiple plates, cashier and group orders remain future work. Economy values are initial balance values.
 
 AdSense remains disabled, with no ad script or ads.txt seller claim. No payments or real-money game purchases exist.
 
@@ -46,3 +46,11 @@ Connect this GitHub repository as a **Worker**, with root directory `/` and prod
 The deploy script resolves or creates only `nasikandartycoon-db`, applies the tracked Drizzle migrations, then deploys Worker `nasikandartycoon` with the `DB` binding and public assets. The build token needs Workers deployment and D1 read/edit permissions. Migration failure stops deployment. Database IDs are resolved in the build environment, never invented.
 
 This creates a separate database. Existing Sites sales and guest sessions are not migrated by this script. Keep the old Site available until migration or a fresh launch is agreed. HTML OG/canonical URLs use the incoming Cloudflare/custom-domain origin.
+
+## Optional Google account saves
+
+Google Identity Services uses a Web Application OAuth Client ID; no client secret is required. Add `https://nasikandartycoon.digitalsambal.space` as an Authorized JavaScript origin in Google Auth Platform → Clients. Configure branding/audience and publish the consent setup (or add test users during testing). Set the plaintext runtime variable `GOOGLE_CLIENT_ID` in Cloudflare Worker Settings → Variables and Secrets, then deploy. `keep_vars` preserves dashboard runtime variables on Git deployments. Do not put credentials in Git.
+
+The next deploy applies migration 0001 before updating the Worker. Login uses Google's signed ID token, jose RS256/JWKS verification, issuer/audience/expiry/nonce checks, a single-use challenge tied to the current guest, same-origin POST and hashed HttpOnly sessions. No emails, names, avatars or Google tokens are persisted. New identity links the existing guest; existing identity loads its original player without merging sales. Other device sessions remain valid. Logout revokes only that device session. Login/account changes require leaving an active shift first. Guest play remains available when Google is unconfigured.
+
+Owner setup and a live two-device Google login must be completed before claiming cross-device login is live. No fake Google identity or test account is used in production.
