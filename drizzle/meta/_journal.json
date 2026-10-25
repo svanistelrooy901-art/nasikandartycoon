@@ -15,6 +15,13 @@
       "when": 1792892119637,
       "tag": "0001_curly_crystal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792904329179,
+      "tag": "0002_high_cable",
+      "breakpoints": true
     }
   ]
 }
